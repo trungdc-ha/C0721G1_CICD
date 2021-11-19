@@ -30,43 +30,43 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(myUserDetailService).passwordEncoder(passwordEncoder());
     }
 
-//    /*Cấu hình security bằng HTTP basic*/
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-////        http.httpBasic().disable();
-//        http.csrf().disable()
-//                .formLogin()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/student").permitAll() //khi login bang /login thi khi thanh cong se vao /student
-//        .and()
-//                /*
-//                 * Đã login
-//                 *  /student : ADMIN, USER
-//                 *  /create : ADMIN
-//                 * Chưa login
-//                 *  home page
-//                 * */
-//                .authorizeRequests().antMatchers("/home").permitAll()
-////                .antMatchers("/student").hasRole("ADMIN")
-////                .antMatchers("/student").hasRole("USER")
-//                .antMatchers("/student").hasAnyRole("ADMIN","USER")
-//                .antMatchers("/student/create").hasRole("ADMIN")
-//                .anyRequest().authenticated(); // tat ca request goi len server deu phai login
-//
-//
-//        http.authorizeRequests().and().rememberMe()
-//                .tokenRepository(this.persistentTokenRepository()).tokenValiditySeconds(60*60*10);
-//
-//    }
-//
-//    /*Cau hinh noi luu tri thong tin remember me*/
-//    @Bean
-//    public PersistentTokenRepository persistentTokenRepository(){
-//        InMemoryTokenRepositoryImpl memoryTokenRepository = new InMemoryTokenRepositoryImpl();
-//        return memoryTokenRepository;
-//    }
-
+    /*Cấu hình security bằng HTTP basic*/
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic().disable();
+//        http.httpBasic().disable();
+        http.csrf().disable()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/student").permitAll() //khi login bang /login thi khi thanh cong se vao /student
+        .and()
+                /*
+                 * Đã login
+                 *  /student : ADMIN, USER
+                 *  /create : ADMIN
+                 * Chưa login
+                 *  home page
+                 * */
+                .authorizeRequests().antMatchers("/home").permitAll()
+//                .antMatchers("/student").hasRole("ADMIN")
+//                .antMatchers("/student").hasRole("USER")
+                .antMatchers("/student").hasAnyRole("ADMIN","USER")
+                .antMatchers("/student/create").hasRole("ADMIN")
+                .anyRequest().authenticated(); // tat ca request goi len server deu phai login
+
+
+        http.authorizeRequests().and().rememberMe()
+                .tokenRepository(this.persistentTokenRepository()).tokenValiditySeconds(60*60*10);
+
     }
+
+    /*Cau hinh noi luu tri thong tin remember me*/
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository(){
+        InMemoryTokenRepositoryImpl memoryTokenRepository = new InMemoryTokenRepositoryImpl();
+        return memoryTokenRepository;
+    }
+
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.httpBasic().disable();
+//    }
 }
