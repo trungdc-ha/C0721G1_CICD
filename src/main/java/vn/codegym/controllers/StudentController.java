@@ -23,7 +23,7 @@ public class StudentController {
 
     @GetMapping(value = {"","/list"})
     public ModelAndView studentList(@PageableDefault(value = 2)Pageable pageable){
-        return new ModelAndView("/student/list", "studentList", studentService.findAll(pageable));
+        return new ModelAndView("student/list", "studentList", studentService.findAll(pageable));
     }
 
 
