@@ -22,7 +22,7 @@ public class StudentController {
     StudentService studentService ;
 
     @GetMapping(value = {"","/list"})
-    public ModelAndView studentList(@PageableDefault(value = 2)Pageable pageable){
+    public ModelAndView studentList(@PageableDefault(value = 5)Pageable pageable){
         return new ModelAndView("student/list", "studentList", studentService.findAll(pageable));
     }
 
@@ -30,7 +30,7 @@ public class StudentController {
     @GetMapping(value = "/create")
     public String showCreateForm(Model model) {
         model.addAttribute("student", new Student());
-        return "/student/create";
+        return "student/create";
     }
 
     @PostMapping(value = "/create")
@@ -44,7 +44,7 @@ public class StudentController {
     @GetMapping(value = "/edit/{id}")
     public String showEditPage(@PathVariable int id, Model model){
         model.addAttribute("student", studentService.findById(id));
-        return "/student/edit";
+        return "student/edit";
     }
 
     @PostMapping(value = "/edit")
@@ -56,6 +56,6 @@ public class StudentController {
 
     @GetMapping("/search")
     public ModelAndView searchByText(@RequestParam String inputSearch, @PageableDefault(value = 10)Pageable pageable){
-        return new ModelAndView("/student/list", "studentList", studentService.findByInputText(inputSearch, pageable));
+        return new ModelAndView("student/list", "studentList", studentService.findByInputText(inputSearch, pageable));
     }
 }
